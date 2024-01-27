@@ -28,7 +28,7 @@ function Editor({ project }: Props) {
     editorProps: {
       attributes: {
         class:
-          "mt-20 min-h-56 border prose prose-sm sm:prose lg:prose-lg mx-auto focus:outline-none",
+          "mt-20 p-2 min-h-56 border prose prose-sm sm:prose lg:prose-lg mx-auto focus:outline-none",
       },
     },
   })
