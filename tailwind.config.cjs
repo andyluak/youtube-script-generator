@@ -32,8 +32,10 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          ...colors.indigo,
-          DEFAULT: colors.indigo["400"],
+          light: colors.emerald[500],
+          DEFAULT: colors.emerald[700],
+          dark: colors.emerald[900],
+          contrast: colors.white,
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -60,6 +62,9 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      textColor: {
+        ["primary-text"]: colors.gray[900],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -79,11 +84,10 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      // add shadows
       boxShadow: {
         brutal: "0 10px 15px -3px rgb(0 0 0 / 0.1), 4px 5px 1px 1px black;",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 }

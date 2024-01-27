@@ -1,23 +1,26 @@
+import React, { useState } from "react"
 import { GetServerSideProps } from "next"
+import { useParams } from "next/navigation"
 import { Project } from "@/db/schema"
-import NoProjects from "@/views/projects/NoProjects"
-import Projects from "@/views/projects/Projects"
-import { useUser } from "@clerk/nextjs"
+import Editor from "@/views/project/Editor"
 import { buildClerkProps, getAuth } from "@clerk/nextjs/server"
 import { useQuery } from "@tanstack/react-query"
 
-export default function Home() {
-  const { data, isLoading } = useQuery<Project[]>({
-    queryKey: ["projects"],
+type Props = {}
+
+function ProjectItem({}: Props) {
+  const { id } = useParams()
+  const { data, isLoading } = useQuery<Project>({
+    queryKey: ["project", id],
     queryFn: async () => {
-      const res = await fetch("/api/projects")
+      const res = await fetch(`/api/projects/${id}`)
       return res.json()
     },
   })
 
-  if (!data && !isLoading) return <NoProjects />
+  if (!data && !isLoading) return null
 
-  if (data && !isLoading) return <Projects projects={data} />
+  if (data && !isLoading) return <Editor project={data} />
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -29,3 +32,5 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return { props: { ...buildClerkProps(ctx.req) } }
 }
+
+export default ProjectItem

@@ -31,3 +31,5 @@ export const projects = pgTable("projects", {
   creationDate: timestamp("creation_date").$default(() => new Date()),
   lastModified: timestamp("last_modified").$default(() => new Date()),
 })
+
+export type Project = typeof projects.$inferSelect
